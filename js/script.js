@@ -1,21 +1,19 @@
-function innerTextNumber(id,id2,id3) {
+// data
+
+const validCoupon = 1212;
+function innerTextNumber(id, id2, id3) {
     const price = parseInt(document.getElementById(id).innerText);
     const itemName = document.getElementById(id2).innerText;
     const subtotalPrice = parseFloat(document.getElementById('subtotal-price').innerText);
-    
+
     const newsubtotal = price + subtotalPrice;
     document.getElementById('subtotal-price').innerText = newsubtotal;
 
-    const discount = parseFloat(document.getElementById('discount').innerText);
-
-    const totalPrice = parseFloat(document.getElementById('total-price').innerText);
-    console.log(totalPrice);
-    const newTotal = newsubtotal - discount;
-    document.getElementById('total-price').innerText = newTotal;
-
+    document.getElementById('total-price').innerText = newsubtotal;
+    // 
     const img = document.getElementById(id3).src;
-    
-        // parent 
+
+    // parent 
     const cartParent = document.getElementById('cart-parent');
     //    create Element
     const newItem = document.createElement('div');
@@ -26,13 +24,24 @@ function innerTextNumber(id,id2,id3) {
                                 <h2 class="text-xl text-[#111111] opacity-"><span>${price}</span>tk</h2>
                             </div>
                         </div>`
-    console.log(newItem);
-
+    
     // append child
 
     cartParent.prepend(newItem);
 }
-function cart() {
-    
 
-}
+document.getElementById('disount-btn').addEventListener('click', function () {
+    const coupon = parseInt(document.getElementById('coupon').value);
+    const subtotalPrice = parseFloat(document.getElementById('subtotal-price').innerText);
+    if (coupon === validCoupon) {
+        const saveMoney = (subtotalPrice * (10 / 100)).toFixed(2);
+        document.getElementById('discount').innerText = saveMoney;
+        const newTotal = subtotalPrice - saveMoney;
+        document.getElementById('total-price').innerText = newTotal;
+
+    }
+    else {
+        alert('Please Enter the Valid Coupon Code.')
+    }
+})
+
